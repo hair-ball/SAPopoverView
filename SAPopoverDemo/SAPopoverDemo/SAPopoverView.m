@@ -64,8 +64,8 @@ static CGPoint anglePoints[3];
 
 - (void)showWithView:(UIView *)view
 {
-    self.contentView.backgroundColor = self.popoverColor;
-    self.contentView.alpha = self.popoverAlpha;
+//    self.contentView.backgroundColor = self.popoverColor;
+//    self.contentView.alpha = self.popoverAlpha;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor clearColor];
@@ -98,9 +98,15 @@ static CGPoint anglePoints[3];
     CGContextSetFillColorWithColor(ctx, self.popoverColor.CGColor);
     CGContextSetAlpha(ctx, self.popoverAlpha);
     
+    CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:self.contentView.frame cornerRadius:self.cornerRadio].CGPath;
+    
+    CGContextAddPath(ctx, path);
+    
     CGContextMoveToPoint(ctx, anglePoints[0].x, anglePoints[0].y);
     CGContextAddLineToPoint(ctx, anglePoints[1].x, anglePoints[1].y);
     CGContextAddLineToPoint(ctx, anglePoints[2].x, anglePoints[2].y);
+    
+    CGContextClosePath(ctx);
     
     CGContextFillPath(ctx);
     
